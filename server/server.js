@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
 
 // Require in out Mongoose Model
 const Book = require('./modules/models/book.schema');
@@ -26,6 +27,8 @@ mongoose.connection.on('error', (error) => {
 // Add static files later
 
 // Add router later
+const bookRouter = require('./routers/book.router');
+app.use('/book', bookRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}...`));
